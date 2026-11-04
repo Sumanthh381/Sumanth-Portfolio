@@ -31,7 +31,7 @@ Run the build before the standalone type check on a fresh checkout so Next.js ge
 - `/projects/intelligent-email-automation`: owner-described project case study.
 - Custom 404, generated Open Graph image, branded SVG icon and robots metadata.
 - `lib/content.ts`: centralized personal details, social links, resume path, capabilities, experience, credentials and case-study content.
-- `components/hero-system.tsx`: pointer-responsive projected 3D network with layer controls, pause/resume, visibility-aware rendering and a static reduced-motion view.
+- `components/hero-system.tsx`: personal monogram within a pointer-responsive projected 3D network with pause/resume, visibility-aware rendering and a static reduced-motion view.
 - `components/project-sculpture.tsx`: CSS 3D layered project studies.
 - `components/`: shared navigation, footer, section headings, diagrams, motion reveal and copy-email action.
 - `app/globals.css`: design tokens, Tailwind import, responsive layouts and reduced-motion rules.

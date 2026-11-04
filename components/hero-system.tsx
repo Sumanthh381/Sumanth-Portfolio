@@ -1,35 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Pause, Play, Rotate3d } from "lucide-react";
-
-const modes = [
-  {
-    label: "Intelligence",
-    detail:
-      "Models become useful when they connect to a well-engineered system.",
-    color: [194, 211, 238],
-  },
-  {
-    label: "Retrieval",
-    detail:
-      "Finding the right knowledge. Preserving context. Grounding the answer.",
-    color: [111, 212, 208],
-  },
-  {
-    label: "Orchestration",
-    detail:
-      "Connecting tools, knowledge and intent into one considered workflow.",
-    color: [222, 190, 140],
-  },
-];
+import { Pause, Play } from "lucide-react";
 
 export function HeroSystem() {
   const canvas = useRef<HTMLCanvasElement>(null);
   const scene = useRef<HTMLDivElement>(null);
   const pointer = useRef({ x: 0, y: 0 });
   const rotation = useRef(0.4);
-  const [mode, setMode] = useState(0);
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
@@ -81,7 +59,7 @@ export function HeroSystem() {
           scale: perspective,
         };
       });
-      const [r, g, b] = modes[mode].color;
+      const [r, g, b] = [194, 211, 238];
       const glow = ctx.createRadialGradient(
         width / 2,
         height * 0.47,
@@ -97,7 +75,7 @@ export function HeroSystem() {
       links.forEach(([i, j]) => {
         const a = rotated[i],
           b = rotated[j];
-        ctx.strokeStyle = `rgba(${r},${g},${modes[mode].color[2]},${0.04 + ((a.z + b.z + 2) / 4) * 0.24})`;
+        ctx.strokeStyle = `rgba(${r},${g},${[194, 211, 238][2]},${0.04 + ((a.z + b.z + 2) / 4) * 0.24})`;
         ctx.lineWidth = 0.65;
         ctx.beginPath();
         ctx.moveTo(a.x, a.y);
@@ -170,14 +148,10 @@ export function HeroSystem() {
       intersection.disconnect();
       reduced.removeEventListener("change", change);
     };
-  }, [mode, paused]);
+  }, [paused]);
 
   return (
     <div className="intelligence-sculpture">
-      <div className="sculpture-heading">
-        <span className="mono">THE INTELLIGENCE ENGINE</span>
-        <span className="sculpture-edition">INTERACTIVE STUDY / 001</span>
-      </div>
       <div
         className="sculpture-scene"
         ref={scene}
@@ -194,16 +168,7 @@ export function HeroSystem() {
       >
         <canvas ref={canvas} aria-hidden="true" />
         <div className="sculpture-center" aria-hidden="true">
-          <span>Σ</span>
-          <small>CONTEXT × INTELLIGENCE</small>
-        </div>
-        <span className="orbital-label label-model">01 / MODELS</span>
-        <span className="orbital-label label-context">02 / KNOWLEDGE</span>
-        <span className="orbital-label label-tools">03 / TOOLS</span>
-        <div className="sculpture-coordinates" aria-hidden="true">
-          X 0.84
-          <br />Y 0.32
-          <br />Z 1.06
+          <span>SN</span>
         </div>
         <button
           className="sculpture-pause"
@@ -212,26 +177,6 @@ export function HeroSystem() {
         >
           {paused ? <Play size={13} /> : <Pause size={13} />}
         </button>
-      </div>
-      <div
-        className="sculpture-controls"
-        role="group"
-        aria-label="Explore intelligence layers"
-      >
-        {modes.map((m, i) => (
-          <button
-            key={m.label}
-            aria-pressed={mode === i}
-            onClick={() => setMode(i)}
-          >
-            <span>0{i + 1}</span>
-            {m.label}
-          </button>
-        ))}
-      </div>
-      <div className="sculpture-caption">
-        <Rotate3d size={16} />
-        <p aria-live="polite">{modes[mode].detail}</p>
       </div>
     </div>
   );

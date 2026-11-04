@@ -3191,3 +3191,9 @@ body::before {
     transform: none;
   }
 }
+
+/* Personal introduction; retain the studio visual language. */
+.hero h1 em { white-space: nowrap; font-size: .92em; }
+.sculpture-center > span { font-size: 72px; letter-spacing: -.09em; padding-right: .09em; }
+@media (max-width: 1100px) { .sculpture-center > span { font-size: 64px; } }
+@media (max-width: 390px) { .hero h1 em { font-size: .84em; } .sculpture-center > span { font-size: 60px; } }

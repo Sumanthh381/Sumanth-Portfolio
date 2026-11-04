@@ -36,19 +36,17 @@ export default function Home() {
       <section className="hero container" aria-labelledby="hero-heading">
         <div className="hero-copy">
           <div className="eyebrow">
-            <span className="status-dot" /> AI ENGINEER / GENERATIVE AI /
-            SYSTEMS ENGINEERING
+            <span className="status-dot" /> MY PERSONAL PORTFOLIO
           </div>
           <h1 id="hero-heading">
-            Engineering
-            <br />
-            <em>Intelligence.</em>
-            <br />
-            <span>Building What’s Next.</span>
+            Hi, I’m<br />
+            <em>Sumanth N M.</em><br />
+            <span>AI Engineer.</span>
           </h1>
           <p className="hero-description">
-            Building intelligent applications through Generative AI, retrieval
-            systems, agentic workflows and backend engineering.
+            I build practical AI applications, retrieval systems and intelligent
+            automation. Based in Bangalore, India, I enjoy turning complex
+            problems into useful, working software.
           </p>
           <div className="hero-actions">
             <a className="button primary" href="#projects">
@@ -77,55 +75,18 @@ export default function Home() {
         </div>
         <HeroSystem />
         <div className="hero-foot">
-          <span>INTELLIGENCE, WITH ENGINEERING DISCIPLINE.</span>
+          <span>SUMANTH N M / AI ENGINEER / BANGALORE, INDIA</span>
           <a href="#about">
             SCROLL TO EXPLORE <ArrowDown size={14} />
           </a>
         </div>
       </section>
 
-      <div className="metrics-wrap">
-        <div className="container metrics">
-          <div>
-            <span className="metric">
-              51<span>/ tests</span>
-            </span>
-            <strong>Automated tests passed</strong>
-            <span>Multi-MCP · recorded test suite</span>
-          </div>
-          <div>
-            <span className="metric">
-              97.75<span>%</span>
-            </span>
-            <strong>Line coverage</strong>
-            <span>Multi-MCP · 651 / 666 lines</span>
-          </div>
-          <div>
-            <span className="metric">
-              62<span>/ requests</span>
-            </span>
-            <strong>Postman requests passed</strong>
-            <span>Multi-MCP · 3 collections</span>
-          </div>
-          <div>
-            <span className="metric">10,767</span>
-            <strong>Processed document chunks</strong>
-            <span>Aviation RAG · owner-reported</span>
-          </div>
-        </div>
-        <p className="metrics-note container">
-          Project validation, not production metrics.{" "}
-          <Link href="/projects/multi-mcp-enterprise-operations">
-            View evidence <ArrowUpRight size={12} />
-          </Link>
-        </p>
-      </div>
-
       <section id="about" className="section container">
         <SectionHeading
           number="01"
-          label="THE ENGINEER"
-          title="Intelligence is the starting point. Engineering makes it useful."
+          label="ABOUT ME"
+          title="A little about me."
         />
         <Reveal className="about-grid">
           <div className="about-copy">
@@ -171,7 +132,7 @@ export default function Home() {
           <SectionHeading
             number="02"
             label="ENGINEERING EXPERTISE"
-            title="Across the intelligent system stack."
+            title="What I work with."
             description="Capabilities that connect models, knowledge, tools and the infrastructure underneath."
           />
           <div className="expertise-grid">
@@ -201,7 +162,7 @@ export default function Home() {
         <SectionHeading
           number="03"
           label="SELECTED ENGINEERING"
-          title="Systems built. Decisions explained."
+          title="A selection of my work."
           description="A closer look at the problem, the architecture and the engineering behind the work."
         />
         <div className="projects-grid">
@@ -270,7 +231,7 @@ export default function Home() {
         <SectionHeading
           number="05"
           label="EXPERIENCE"
-          title="An engineering perspective, built through practice."
+          title="Where I’ve put my skills to work."
         />
         <div className="timeline">
           {experience.map((job, i) => (
@@ -307,7 +268,7 @@ export default function Home() {
           <SectionHeading
             number="06"
             label="CONTINUOUS LEARNING"
-            title="A foundation that keeps expanding."
+            title="What I’ve been learning."
             description="Learning across generative AI, machine learning and applied data science."
           />
           <div className="credentials-grid">

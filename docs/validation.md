@@ -13,7 +13,7 @@ Validated in the cloud workspace on 4 November 2026 using Node.js 24.22.1 and np
 - Five public GitHub/profile/source-evidence links: HTTP 200.
 - Downloadable resume: exact original owner-uploaded PDF, verified by SHA-256 comparison.
 - IIT Guwahati certificate: original owner-uploaded PDF, verified by SHA-256 comparison; rendered preview and working PDF view/download links.
-- Updated 3D visualization: nonempty canvas, selectable layers, pause/resume and a static frame under reduced motion passed Chromium checks.
+- Updated 3D visualization: nonempty decorative canvas, personal monogram, pause/resume and a static frame under reduced motion passed Chromium checks.
 - Resume experience dates: EON November 2024–November 2025 and UNIPREP December 2025–June 2026 verified in rendered content.
 - Repository source/asset scan: no common private-key or token patterns found; `.env` variants and credential-key formats confirmed ignored.
 - `npm audit --omit=dev`: zero production dependency vulnerabilities.

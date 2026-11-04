@@ -17,7 +17,9 @@ with sync_playwright() as p:
     page.on('pageerror', lambda error: errors.append(str(error)))
     assert page.goto(base).status == 200
     page.get_by_role('heading',level=1).wait_for()
-    assert 'Engineering' in page.get_by_role('heading',level=1).inner_text()
+    assert 'Sumanth N M' in page.get_by_role('heading',level=1).inner_text()
+    assert page.locator('.metrics-wrap').count() == 0
+    assert page.locator('.sculpture-controls, .sculpture-coordinates, .orbital-label').count() == 0
     assert page.locator('main').count() == 1
     for section in ['about','expertise','experience','projects','certifications','contact']:
         assert page.locator('#'+section).count() == 1
@@ -33,11 +35,6 @@ with sync_playwright() as p:
     page.wait_for_timeout(120)
     assert before == globe.evaluate('c=>c.toDataURL()'), 'Paused sculpture changed frames'
     page.get_by_role('button',name='Play 3D animation').click()
-    page.get_by_role('group',name='Explore intelligence layers').get_by_role('button',name='Retrieval',exact=False).click()
-    expect(page.locator('.sculpture-caption')).to_contain_text('Grounding the answer')
-    page.get_by_role('group',name='Explore intelligence layers').get_by_role('button',name='Orchestration',exact=False).click()
-    expect(page.locator('.sculpture-caption')).to_contain_text('considered workflow')
-    page.get_by_role('group',name='Explore intelligence layers').get_by_role('button',name='Intelligence',exact=False).click()
     assert 'Nov 2024' in page.locator('#experience').inner_text()
     assert 'Dec 2025' in page.locator('#experience').inner_text()
     expect(page.get_by_role('link',name='Open IIT Guwahati certificate PDF')).to_be_visible()
