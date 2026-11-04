@@ -31,10 +31,12 @@ Run the build before the standalone type check on a fresh checkout so Next.js ge
 - `/projects/intelligent-email-automation`: owner-described project case study.
 - Custom 404, generated Open Graph image, branded SVG icon and robots metadata.
 - `lib/content.ts`: centralized personal details, social links, resume path, capabilities, experience, credentials and case-study content.
+- `components/hero-system.tsx`: pointer-responsive projected 3D network with layer controls, pause/resume, visibility-aware rendering and a static reduced-motion view.
+- `components/project-sculpture.tsx`: CSS 3D layered project studies.
 - `components/`: shared navigation, footer, section headings, diagrams, motion reveal and copy-email action.
 - `app/globals.css`: design tokens, Tailwind import, responsive layouts and reduced-motion rules.
 
-Server components handle content and routing. Only navigation, clipboard actions, architecture interaction and subtle reveal effects use client components. Fonts are bundled locally; there are no runtime font requests. No fabricated profile photo, project screenshot or credential imagery is used.
+Server components handle content and routing. Only navigation, clipboard actions, architecture interaction, the interactive 3D canvas sculpture and subtle reveal effects use client components. Fonts are bundled locally; there are no runtime font requests. No fabricated profile photo, project screenshot or credential imagery is used.
 
 ## Content and source integrity
 
@@ -42,10 +44,10 @@ See [content provenance](docs/content-provenance.md) for inspected commits and e
 
 ### Assets and information to add
 
-- **LinkedIn:** set `profile.linkedin` to an owner-verified URL. It is omitted until supplied.
-- **Resume:** a concise downloadable PDF is included, generated from the supplied brief. Replace `public/sumanth-nm-resume.pdf` with the owner-approved original when available, or change `profile.resume`. Optional regeneration: install Python `reportlab`, then run `python3 scripts/generate-resume.py`. Python is not needed to run, build or deploy the website.
-- **EON dates:** add exact employment dates to `experience` after checking the original resume. They are omitted rather than guessed.
-- **Certificates:** add genuine certificate files and verified links. No credential IDs are invented. The Medtronic-required certificate needs its exact title and issuer.
+- **LinkedIn:** uses the URL supplied in the owner’s resume.
+- **Resume:** `public/sumanth-nm-resume.pdf` is the exact owner-uploaded resume, served by all download buttons. Do not replace it with generated content.
+- **Experience:** EON and UNIPREP dates now follow the uploaded resume. Impact percentages are not promoted as independently verified results.
+- **Certificates:** the original IIT Guwahati PDF and a rendered preview are included under `public/certificates/`. Other credentials are listed from the resume; their documents can be added later.
 - **Additional repositories:** supply verified links for the resume parser and email automation projects.
 - **Domain:** set optional `SITE_URL` to the verified HTTPS production origin before building on self-hosted deployments. Vercel uses its `VERCEL_PROJECT_PRODUCTION_URL` automatically; local builds default to localhost. Add canonical URLs and a sitemap when the production domain is confirmed.
 

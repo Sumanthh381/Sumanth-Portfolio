@@ -1,75 +1,237 @@
-import {
-  ArrowDown,
-  ArrowRight,
-  Database,
-  FileText,
-  GitBranch,
-  Network,
-  ShieldCheck,
-} from "lucide-react";
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { Pause, Play, Rotate3d } from "lucide-react";
+
+const modes = [
+  {
+    label: "Intelligence",
+    detail:
+      "Models become useful when they connect to a well-engineered system.",
+    color: [194, 211, 238],
+  },
+  {
+    label: "Retrieval",
+    detail:
+      "Finding the right knowledge. Preserving context. Grounding the answer.",
+    color: [111, 212, 208],
+  },
+  {
+    label: "Orchestration",
+    detail:
+      "Connecting tools, knowledge and intent into one considered workflow.",
+    color: [222, 190, 140],
+  },
+];
+
 export function HeroSystem() {
+  const canvas = useRef<HTMLCanvasElement>(null);
+  const scene = useRef<HTMLDivElement>(null);
+  const pointer = useRef({ x: 0, y: 0 });
+  const rotation = useRef(0.4);
+  const [mode, setMode] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    const element = canvas.current;
+    const container = scene.current;
+    if (!element || !container) return;
+    const ctx = element.getContext("2d");
+    if (!ctx) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let width = 1,
+      height = 1,
+      frame = 0,
+      visible = true,
+      angle = rotation.current,
+      previous = 0;
+    const points = Array.from({ length: 150 }, (_, i) => {
+      const y = 1 - (i / 149) * 2;
+      const r = Math.sqrt(1 - y * y);
+      const a = Math.PI * (3 - Math.sqrt(5)) * i;
+      return { x: Math.cos(a) * r, y, z: Math.sin(a) * r };
+    });
+    const links: [number, number][] = [];
+    points.forEach((a, i) =>
+      points.forEach((b, j) => {
+        if (j > i && Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z) < 0.34)
+          links.push([i, j]);
+      }),
+    );
+    function draw(time: number) {
+      if (!ctx || !element) return;
+      const dt = previous ? Math.min(time - previous, 40) : 16;
+      previous = time;
+      if (!reduced.matches && !paused) angle += dt * 0.00013;
+      rotation.current = angle;
+      ctx.clearRect(0, 0, width, height);
+      const radius = Math.min(width * 0.35, height * 0.34);
+      const rx = reduced.matches ? -0.22 : -0.22 + pointer.current.y * 0.2;
+      const ry = angle + (reduced.matches ? 0 : pointer.current.x * 0.3);
+      const rotated = points.map((p) => {
+        const x = p.x * Math.cos(ry) + p.z * Math.sin(ry);
+        const z = -p.x * Math.sin(ry) + p.z * Math.cos(ry);
+        const y = p.y * Math.cos(rx) - z * Math.sin(rx);
+        const depth = p.y * Math.sin(rx) + z * Math.cos(rx);
+        const perspective = 3.5 / (3.5 - depth);
+        return {
+          x: width / 2 + x * radius * perspective,
+          y: height * 0.47 + y * radius * perspective,
+          z: depth,
+          scale: perspective,
+        };
+      });
+      const [r, g, b] = modes[mode].color;
+      const glow = ctx.createRadialGradient(
+        width / 2,
+        height * 0.47,
+        0,
+        width / 2,
+        height * 0.47,
+        radius * 1.4,
+      );
+      glow.addColorStop(0, `rgba(${r},${g},${b},0.055)`);
+      glow.addColorStop(1, `rgba(${r},${g},${b},0)`);
+      ctx.fillStyle = glow;
+      ctx.fillRect(0, 0, width, height);
+      links.forEach(([i, j]) => {
+        const a = rotated[i],
+          b = rotated[j];
+        ctx.strokeStyle = `rgba(${r},${g},${modes[mode].color[2]},${0.04 + ((a.z + b.z + 2) / 4) * 0.24})`;
+        ctx.lineWidth = 0.65;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+      });
+      // Tilted orbital rings are projected from real three-dimensional coordinates.
+      for (let orbit = 0; orbit < 3; orbit++) {
+        ctx.beginPath();
+        for (let i = 0; i <= 160; i++) {
+          const a = (i / 160) * Math.PI * 2;
+          const x = Math.cos(a) * 1.28,
+            y = Math.sin(a) * Math.cos(orbit * 1.1 + 0.35) * 1.28,
+            z = Math.sin(a) * Math.sin(orbit * 1.1 + 0.35) * 1.28;
+          const xx = x * Math.cos(ry * 0.3) + z * Math.sin(ry * 0.3),
+            zz = -x * Math.sin(ry * 0.3) + z * Math.cos(ry * 0.3);
+          const yy = y * Math.cos(rx) - zz * Math.sin(rx),
+            d = y * Math.sin(rx) + zz * Math.cos(rx),
+            s = 3.5 / (3.5 - d);
+          const px = width / 2 + xx * radius * s,
+            py = height * 0.47 + yy * radius * s;
+          if (i === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        }
+        ctx.strokeStyle = `rgba(${r},${g},${b},${0.12 + orbit * 0.025})`;
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+      }
+      rotated
+        .sort((a, b) => a.z - b.z)
+        .forEach((p, i) => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, (i % 11 === 0 ? 2.1 : 1) * p.scale, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${r},${g},${b},${0.2 + (p.z + 1) * 0.35})`;
+          ctx.fill();
+        });
+    }
+    function tick(time: number) {
+      if (visible && !document.hidden) draw(time);
+      frame = requestAnimationFrame(tick);
+    }
+    function resize() {
+      if (!element || !ctx || !container) return;
+      width = container.clientWidth;
+      height = container.clientHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      element.width = width * dpr;
+      element.height = height * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      draw(0);
+    }
+    const observer = new ResizeObserver(resize);
+    observer.observe(container);
+    const intersection = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      previous = 0;
+    });
+    intersection.observe(container);
+    resize();
+    if (!reduced.matches && !paused) frame = requestAnimationFrame(tick);
+    const change = () => {
+      cancelAnimationFrame(frame);
+      resize();
+      if (!reduced.matches && !paused) frame = requestAnimationFrame(tick);
+    };
+    reduced.addEventListener("change", change);
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      intersection.disconnect();
+      reduced.removeEventListener("change", change);
+    };
+  }, [mode, paused]);
+
   return (
-    <div
-      className="hero-system"
-      aria-label="Conceptual AI engineering flow: inputs, orchestration, tools and retrieval, grounded output"
-    >
-      <div className="system-top">
-        <span className="mono">SYSTEM / 001</span>
-        <span>
-          <i className="status-dot" /> ENGINEERING VIEW
-        </span>
+    <div className="intelligence-sculpture">
+      <div className="sculpture-heading">
+        <span className="mono">THE INTELLIGENCE ENGINE</span>
+        <span className="sculpture-edition">INTERACTIVE STUDY / 001</span>
       </div>
-      <div className="system-canvas">
-        <div className="system-input">
-          <span className="mini-label">INPUT LAYER</span>
-          <div>
-            <FileText size={17} /> Documents <span>/</span> APIs <span>/</span>{" "}
-            Intent
-          </div>
+      <div
+        className="sculpture-scene"
+        ref={scene}
+        onPointerMove={(e) => {
+          const r = e.currentTarget.getBoundingClientRect();
+          pointer.current = {
+            x: (e.clientX - r.left) / r.width - 0.5,
+            y: (e.clientY - r.top) / r.height - 0.5,
+          };
+        }}
+        onPointerLeave={() => {
+          pointer.current = { x: 0, y: 0 };
+        }}
+      >
+        <canvas ref={canvas} aria-hidden="true" />
+        <div className="sculpture-center" aria-hidden="true">
+          <span>Σ</span>
+          <small>CONTEXT × INTELLIGENCE</small>
         </div>
-        <div className="system-connector">
-          <ArrowDown size={20} />
+        <span className="orbital-label label-model">01 / MODELS</span>
+        <span className="orbital-label label-context">02 / KNOWLEDGE</span>
+        <span className="orbital-label label-tools">03 / TOOLS</span>
+        <div className="sculpture-coordinates" aria-hidden="true">
+          X 0.84
+          <br />Y 0.32
+          <br />Z 1.06
         </div>
-        <div className="system-core">
-          <div className="core-icon">
-            <Network size={30} strokeWidth={1.2} />
-          </div>
-          <span>
-            <small>INTELLIGENCE LAYER</small>
-            <strong>Orchestration</strong>
-            <em>Context · tools · reasoning</em>
-          </span>
-          <GitBranch size={21} />
-        </div>
-        <div className="system-split">
-          <span />
-          <span />
-          <span />
-        </div>
-        <div className="system-branches">
-          <div>
-            <Network size={20} />
-            <strong>Tool integration</strong>
-            <small>MCP / APIs</small>
-          </div>
-          <div>
-            <Database size={20} />
-            <strong>Knowledge retrieval</strong>
-            <small>INDEX / CONTEXT</small>
-          </div>
-        </div>
-        <div className="system-connector">
-          <ArrowDown size={20} />
-        </div>
-        <div className="system-output">
-          <ShieldCheck size={18} />
-          <span>Grounded output</span>
-          <ArrowRight size={16} />
-        </div>
+        <button
+          className="sculpture-pause"
+          onClick={() => setPaused(!paused)}
+          aria-label={paused ? "Play 3D animation" : "Pause 3D animation"}
+        >
+          {paused ? <Play size={13} /> : <Pause size={13} />}
+        </button>
       </div>
-      <div className="system-bottom">
-        <span>DESIGNED FOR CLARITY</span>
-        <span>01 — 04</span>
+      <div
+        className="sculpture-controls"
+        role="group"
+        aria-label="Explore intelligence layers"
+      >
+        {modes.map((m, i) => (
+          <button
+            key={m.label}
+            aria-pressed={mode === i}
+            onClick={() => setMode(i)}
+          >
+            <span>0{i + 1}</span>
+            {m.label}
+          </button>
+        ))}
+      </div>
+      <div className="sculpture-caption">
+        <Rotate3d size={16} />
+        <p aria-live="polite">{modes[mode].detail}</p>
       </div>
     </div>
   );

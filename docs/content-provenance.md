@@ -1,6 +1,6 @@
 # Content provenance
 
-Inspected on 4 November 2026. Personal information, employment, education and credentials originate from the owner-supplied master project brief. Certificate documents and the original resume were not supplied. EON employment dates and LinkedIn are omitted. The downloadable resume is generated from supplied facts, not represented as an original uploaded resume.
+Inspected on 4 November 2026. Personal information, employment, education and credentials originate from the owner-supplied master project brief. The owner subsequently supplied the original resume and IIT Guwahati certificate. The downloadable resume is the original file, unchanged. EON dates (November 2024–November 2025), UNIPREP dates (December 2025–June 2026), LinkedIn and the Neurastack credential now follow the resume. The IIT PDF confirms the June 2025–January 2026 program, issuer and certificate ID. Resume impact figures are not presented as independently verified measurements. The resume contains differing aggregate resume-processing counts; those counts have not been added to the website.
 
 ## Multi-MCP
 

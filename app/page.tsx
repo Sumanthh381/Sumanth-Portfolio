@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowDown,
   ArrowRight,
@@ -8,7 +9,6 @@ import {
   Check,
   Code2,
   Cpu,
-  Database,
   Download,
   GitFork,
   Layers,
@@ -24,6 +24,7 @@ import {
   projects,
 } from "@/lib/content";
 import { SectionHeading } from "@/components/section-heading";
+import { ProjectSculpture } from "@/components/project-sculpture";
 import { HeroSystem } from "@/components/hero-system";
 import { ArchitectureShowcase } from "@/components/architecture";
 import { CopyEmail } from "@/components/contact-actions";
@@ -41,7 +42,7 @@ export default function Home() {
           <h1 id="hero-heading">
             Engineering
             <br />
-            Intelligence.
+            <em>Intelligence.</em>
             <br />
             <span>Building What’s Next.</span>
           </h1>
@@ -209,46 +210,7 @@ export default function Home() {
               key={project.slug}
               className={`project-card ${i === 0 ? "flagship" : ""}`}
             >
-              <div className="project-art" aria-hidden="true">
-                <div className="art-grid" />
-                {i === 0 ? (
-                  <>
-                    <span className="art-node art-a">ALARM MCP</span>
-                    <span className="art-node art-b">ORCHESTRATOR</span>
-                    <span className="art-node art-c">WORK ORDERS</span>
-                    <span className="art-node art-d">RETRIEVAL</span>
-                    <div className="art-cross" />
-                  </>
-                ) : i === 1 ? (
-                  <div className="retrieval-art">
-                    <FileIcon />
-                    <span className="art-line" />
-                    <Database size={42} strokeWidth={1} />
-                    <span className="art-line" />
-                    <Layers size={40} strokeWidth={1} />
-                  </div>
-                ) : (
-                  <div className="simple-art">
-                    {i === 2 ? (
-                      <Braces size={70} strokeWidth={0.8} />
-                    ) : (
-                      <Mail size={70} strokeWidth={0.8} />
-                    )}
-                    <span>
-                      {i === 2
-                        ? "EXTRACT → STRUCTURE → MATCH"
-                        : "AUTHORIZE → PROCESS → ACT"}
-                    </span>
-                  </div>
-                )}
-                <span className="art-caption">
-                  {i === 0
-                    ? "MCP × RAG / CONNECTED OPERATIONS"
-                    : i === 1
-                      ? "CONTEXT BEFORE GENERATION"
-                      : "WORKFLOW / ENGINEERING"}
-                </span>
-              </div>
+              <ProjectSculpture index={i} />
               <div className="project-content">
                 <div className="project-meta">
                   <span>
@@ -350,7 +312,27 @@ export default function Home() {
           />
           <div className="credentials-grid">
             {certifications.map((credential, i) => (
-              <article className="credential" key={credential.name}>
+              <article
+                className={`credential ${credential.image ? "credential-featured" : ""}`}
+                key={credential.name}
+              >
+                {credential.image && (
+                  <a
+                    className="certificate-preview"
+                    href={credential.href!}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Open IIT Guwahati certificate PDF"
+                  >
+                    <Image
+                      src={credential.image}
+                      alt="Sumanth N M’s certificate of completion from Electronics & ICT Academy, IIT Guwahati"
+                      width={1400}
+                      height={990}
+                      sizes="(max-width: 760px) 90vw, 55vw"
+                    />
+                  </a>
+                )}
                 <div>
                   <span className="credential-icon">
                     <Award size={20} />
@@ -359,10 +341,24 @@ export default function Home() {
                 </div>
                 <span className="credential-issuer">{credential.issuer}</span>
                 <h3>{credential.name}</h3>
-                <p>
-                  {credential.note ||
-                    "Certificate document and verification link to be added."}
-                </p>
+                <p>{credential.note}</p>
+                {credential.href && (
+                  <div className="credential-actions">
+                    <a
+                      href={credential.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View certificate <ArrowUpRight size={14} />
+                    </a>
+                    <a href={credential.href} download>
+                      Download PDF <Download size={14} />
+                    </a>
+                  </div>
+                )}
+                {credential.id && (
+                  <span className="credential-id">{credential.id}</span>
+                )}
               </article>
             ))}
           </div>
@@ -406,14 +402,5 @@ export default function Home() {
         </div>
       </section>
     </main>
-  );
-}
-function FileIcon() {
-  return (
-    <div className="file-stack">
-      <span />
-      <span />
-      <span>PDF</span>
-    </div>
   );
 }

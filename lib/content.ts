@@ -1,10 +1,10 @@
 export const profile = {
   name: "Sumanth N M",
   role: "AI Engineer",
-  location: "India",
+  location: "Bangalore, India",
   email: "sumanthnm28@gmail.com",
   github: "https://github.com/Sumanthh381",
-  linkedin: null as string | null,
+  linkedin: "https://www.linkedin.com/in/sumanth-nm/" as string | null,
   resume: "/sumanth-nm-resume.pdf",
   introduction:
     "I am an AI Engineer focused on building practical AI applications, intelligent automation systems and LLM-powered solutions. My work combines AI engineering, backend development, retrieval systems and enterprise integrations to solve real-world problems.",
@@ -75,7 +75,7 @@ export const experience = [
   {
     company: "UNIPREP",
     role: "AI Engineer",
-    date: "Mar — Jul 2026",
+    date: "Dec 2025 — Jun 2026",
     location: "Remote",
     items: [
       "CV parsing and structured information extraction.",
@@ -85,18 +85,18 @@ export const experience = [
   },
   {
     company: "EON Elevators Pvt. Ltd.",
-    role: "Executive Product Design",
-    date: null,
-    location: null,
+    role: "Executive — Product Design (AI/Data Focus)",
+    date: "Nov 2024 — Nov 2025",
+    location: "Bangalore",
     items: [
-      "Elevator electrical and product design with AutoCAD.",
-      "Exploration of AI-assisted CAD automation and predictive maintenance concepts using Python, Pandas and NumPy.",
-      "Customer and vendor coordination.",
+      "Applied Python, Pandas, NumPy and machine learning to elevator fault datasets to investigate recurring failure patterns.",
+      "Performed exploratory analysis and feature engineering across more than three years of operational data to support maintenance decisions.",
+      "Automated CAD design workflows with Python and collaborated across the engineering team.",
     ],
     recognition: "Best Performer of the Month · August 2025",
   },
   {
-    company: "AQMENZ",
+    company: "Aqmenz Automation Pvt. Ltd.",
     role: "Machine Learning Applications Intern",
     date: "Oct — Nov 2023",
     location: null,
@@ -109,19 +109,44 @@ export const experience = [
 ];
 export const certifications = [
   {
-    issuer: "IIT Guwahati",
+    issuer: "Electronics & ICT Academy, IIT Guwahati",
     name: "Professional Certificate Program in Generative AI and Machine Learning",
+    note: "June 2025 — January 2026 · In partnership with Simplilearn",
+    href: "/certificates/iit-guwahati-generative-ai.pdf",
+    image: "/certificates/iit-guwahati.jpg",
+    id: "EICT/2526/081/20/458",
   },
-  { issuer: "IBM", name: "Deep Learning with TensorFlow" },
-  { issuer: "IBM", name: "Python 101 for Data Science" },
+  {
+    issuer: "Python Academy Inc.",
+    name: "Neurastack AI Developer Professional Certificate Course",
+    note: "Issued August 2026 · Listed on resume",
+    href: null,
+    image: null,
+    id: null,
+  },
+  {
+    issuer: "IBM",
+    name: "Deep Learning with TensorFlow",
+    note: "Deep learning & model development",
+    href: null,
+    image: null,
+    id: null,
+  },
+  {
+    issuer: "IBM",
+    name: "Python 101 for Data Science",
+    note: "Python & applied data science",
+    href: null,
+    image: null,
+    id: null,
+  },
   {
     issuer: "Tata Technologies",
-    name: "GenAI Powered Data Analytics Job Simulation",
-  },
-  {
-    issuer: "AI certification",
-    name: "Medtronic-required AI certification",
-    note: "Credential title and issuer to be added.",
+    name: "GenAI-Powered Data Analytics Job Simulation",
+    note: "Generative AI & data analytics",
+    href: null,
+    image: null,
+    id: null,
   },
 ];
 export type Project = {

@@ -22,6 +22,28 @@ with sync_playwright() as p:
     for section in ['about','expertise','experience','projects','certifications','contact']:
         assert page.locator('#'+section).count() == 1
     page.screenshot(path=str(shots/'desktop-home.png'),full_page=True)
+    page.screenshot(path=str(shots/'desktop-hero.png'))
+    globe = page.locator('.sculpture-scene canvas')
+    expect(globe).to_be_visible()
+    assert globe.evaluate("c => c.width > 0 && c.height > 0")
+    assert globe.evaluate("c => Array.from(c.getContext('2d').getImageData(0,0,c.width,c.height).data).some(v=>v>0)")
+    page.get_by_role('button',name='Pause 3D animation').click()
+    expect(page.get_by_role('button',name='Play 3D animation')).to_be_visible()
+    before = globe.evaluate('c=>c.toDataURL()')
+    page.wait_for_timeout(120)
+    assert before == globe.evaluate('c=>c.toDataURL()'), 'Paused sculpture changed frames'
+    page.get_by_role('button',name='Play 3D animation').click()
+    page.get_by_role('group',name='Explore intelligence layers').get_by_role('button',name='Retrieval',exact=False).click()
+    expect(page.locator('.sculpture-caption')).to_contain_text('Grounding the answer')
+    page.get_by_role('group',name='Explore intelligence layers').get_by_role('button',name='Orchestration',exact=False).click()
+    expect(page.locator('.sculpture-caption')).to_contain_text('considered workflow')
+    page.get_by_role('group',name='Explore intelligence layers').get_by_role('button',name='Intelligence',exact=False).click()
+    assert 'Nov 2024' in page.locator('#experience').inner_text()
+    assert 'Dec 2025' in page.locator('#experience').inner_text()
+    expect(page.get_by_role('link',name='Open IIT Guwahati certificate PDF')).to_be_visible()
+    certificate = context.request.get(base+'/certificates/iit-guwahati-generative-ai.pdf')
+    assert certificate.status == 200 and certificate.body().startswith(b'%PDF')
+
     page.get_by_role('button',name='Retrieval pipeline').click()
     page.get_by_role('button',name='Index Embeddings / FAISS', exact=False).click()
     assert 'text-embedding-3-small' in page.locator('.node-detail').inner_text()
@@ -58,6 +80,7 @@ with sync_playwright() as p:
     page.set_viewport_size({'width':390,'height':844})
     page.goto(base)
     page.screenshot(path=str(shots/'mobile-home.png'),full_page=True)
+    page.screenshot(path=str(shots/'mobile-hero.png'))
     assert page.goto(base+'/missing-page').status == 404
     assert 'missing connection' in page.get_by_role('heading',level=1).inner_text().lower()
     page.get_by_role('link',name='Back to home').click()
@@ -66,6 +89,11 @@ with sync_playwright() as p:
     reduced_page = reduced.new_page()
     reduced_page.goto(base)
     assert reduced_page.evaluate("getComputedStyle(document.documentElement).scrollBehavior") == 'auto'
+    reduced_canvas = reduced_page.locator('.sculpture-scene canvas')
+    expect(reduced_canvas).to_be_visible()
+    still = reduced_canvas.evaluate('c=>c.toDataURL()')
+    reduced_page.wait_for_timeout(120)
+    assert still == reduced_canvas.evaluate('c=>c.toDataURL()'), 'Reduced-motion sculpture animated'
     assert not errors, errors
     print('PASS diagrams, mobile navigation, clipboard, PDF download, SEO assets, custom 404, reduced motion; no browser errors')
     browser.close()
