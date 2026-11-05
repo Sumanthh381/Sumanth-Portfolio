@@ -24,14 +24,14 @@ Run the build before the standalone type check on a fresh checkout so Next.js ge
 
 ## Routes and structure
 
-- `/`: responsive homepage, expertise, project cards, interactive architecture showcase, experience, certifications and contact.
+- `/`: responsive homepage, expertise, project cards, experience, certifications and contact.
 - `/projects/multi-mcp-enterprise-operations`: source-grounded flagship case study.
 - `/projects/aviation-rag-chatbot`: verified public prototype and clearly separated owner-reported aviation extension.
 - `/projects/ai-resume-parser`: owner-described project case study.
 - `/projects/intelligent-email-automation`: owner-described project case study.
 - Custom 404, generated Open Graph image, branded SVG icon and robots metadata.
 - `lib/content.ts`: centralized personal details, social links, resume path, capabilities, experience, credentials and case-study content.
-- `components/hero-system.tsx`: personal monogram within a pointer-responsive projected 3D network with pause/resume, visibility-aware rendering and a static reduced-motion view.
+- `components/hero-system.tsx`: pointer-responsive decorative 3D globe with pause/resume, visibility-aware rendering and a static reduced-motion view.
 - `components/project-sculpture.tsx`: CSS 3D layered project studies.
 - `components/`: shared navigation, footer, section headings, diagrams, motion reveal and copy-email action.
 - `app/globals.css`: design tokens, Tailwind import, responsive layouts and reduced-motion rules.

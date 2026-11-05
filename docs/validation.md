@@ -7,13 +7,13 @@ Validated in the cloud workspace on 4 November 2026 using Node.js 24.22.1 and np
 - `npm run build`: passed; homepage and all four project detail routes prerendered successfully.
 - `npm run typecheck`: passed.
 - Chromium production-browser smoke test: passed at 1440, 1024, 768, 390 and 320 pixels. Homepage and all project pages had no horizontal overflow.
-- Architecture tab and stage selection, mobile menu state and navigation, actual clipboard contents, resume download, PDF response, icon, Open Graph image, robots response, custom 404 and return link: passed.
+- Case-study architecture diagrams, mobile menu state and navigation, actual clipboard contents, resume download, PDF response, icon, Open Graph image, robots response, custom 404 and return link: passed.
 - Reduced-motion preference: smooth scrolling disabled as expected.
 - No browser page errors observed during the smoke run.
 - Five public GitHub/profile/source-evidence links: HTTP 200.
 - Downloadable resume: exact original owner-uploaded PDF, verified by SHA-256 comparison.
 - IIT Guwahati certificate: original owner-uploaded PDF, verified by SHA-256 comparison; rendered preview and working PDF view/download links.
-- Updated 3D visualization: nonempty decorative canvas, personal monogram, pause/resume and a static frame under reduced motion passed Chromium checks.
+- Updated 3D visualization: nonempty decorative canvas, pause/resume and a static frame under reduced motion passed Chromium checks.
 - Resume experience dates: EON November 2024–November 2025 and UNIPREP December 2025–June 2026 verified in rendered content.
 - Repository source/asset scan: no common private-key or token patterns found; `.env` variants and credential-key formats confirmed ignored.
 - `npm audit --omit=dev`: zero production dependency vulnerabilities.

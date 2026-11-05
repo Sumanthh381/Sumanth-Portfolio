@@ -26,7 +26,6 @@ import {
 import { SectionHeading } from "@/components/section-heading";
 import { ProjectSculpture } from "@/components/project-sculpture";
 import { HeroSystem } from "@/components/hero-system";
-import { ArchitectureShowcase } from "@/components/architecture";
 import { CopyEmail } from "@/components/contact-actions";
 import { Reveal } from "@/components/reveal";
 
@@ -215,23 +214,11 @@ export default function Home() {
         </a>
       </section>
 
-      <section id="architecture" className="section section-tinted">
-        <div className="container">
-          <SectionHeading
-            number="04"
-            label="SYSTEMS THINKING"
-            title="Follow the flow of intelligence."
-            description="Explore the boundaries between requests, tools, knowledge and answers. Select a stage to inspect its role."
-          />
-          <ArchitectureShowcase />
-        </div>
-      </section>
-
       <section id="experience" className="section container">
         <SectionHeading
-          number="05"
+          number="04"
           label="EXPERIENCE"
-          title="Where I’ve put my skills to work."
+          title="Work Experience"
         />
         <div className="timeline">
           {experience.map((job, i) => (
@@ -266,7 +253,7 @@ export default function Home() {
       <section id="certifications" className="section section-tinted">
         <div className="container">
           <SectionHeading
-            number="06"
+            number="05"
             label="CONTINUOUS LEARNING"
             title="What I’ve been learning."
             description="Learning across generative AI, machine learning and applied data science."
@@ -330,14 +317,9 @@ export default function Home() {
         <div className="eyebrow">
           <span className="status-dot" /> START A CONVERSATION
         </div>
-        <h2>
-          Let’s build something
-          <br />
-          <span>intelligent.</span>
-        </h2>
+        <h2>Get in <span>Touch.</span></h2>
         <p>
-          Interested in AI engineering, Generative AI, intelligent systems or
-          automation? I’d be glad to connect and explore opportunities.
+          Feel free to reach out about job opportunities, projects, or my work.
         </p>
         <div className="contact-email">
           <a href={`mailto:${profile.email}`}>

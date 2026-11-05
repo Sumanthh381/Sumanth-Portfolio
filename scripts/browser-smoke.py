@@ -41,12 +41,9 @@ with sync_playwright() as p:
     certificate = context.request.get(base+'/certificates/iit-guwahati-generative-ai.pdf')
     assert certificate.status == 200 and certificate.body().startswith(b'%PDF')
 
-    page.get_by_role('button',name='Retrieval pipeline').click()
-    page.get_by_role('button',name='Index Embeddings / FAISS', exact=False).click()
-    assert 'text-embedding-3-small' in page.locator('.node-detail').inner_text()
-    page.get_by_role('button',name='Enterprise operations').click()
-    page.get_by_role('button',name='Connect MCP registry', exact=False).click()
-    assert 'JSON-RPC' in page.locator('.node-detail').inner_text()
+    assert page.locator('#architecture, .sculpture-center').count() == 0
+    expect(page.locator('#experience').get_by_role('heading',level=2)).to_have_text('Work Experience')
+    expect(page.locator('#contact').get_by_role('heading',level=2)).to_have_text('Get in Touch.')
     page.get_by_role('button',name='Copy email address',exact=True).click()
     expect(page.get_by_role('status')).to_have_text('Email copied')
     assert page.evaluate('navigator.clipboard.readText()') == 'sumanthnm28@gmail.com'

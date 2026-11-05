@@ -167,9 +167,6 @@ export function HeroSystem() {
         }}
       >
         <canvas ref={canvas} aria-hidden="true" />
-        <div className="sculpture-center" aria-hidden="true">
-          <span>SN</span>
-        </div>
         <button
           className="sculpture-pause"
           onClick={() => setPaused(!paused)}
