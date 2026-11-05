@@ -1,6 +1,6 @@
 # Sumanth N M — AI Engineer
 
-A complete dark editorial engineering portfolio built with Next.js App Router, TypeScript, Tailwind CSS, Framer Motion, Lucide React and locally hosted Geist fonts.
+A complete Apple-inspired dark personal portfolio built with Next.js App Router, TypeScript, Tailwind CSS, Framer Motion, Lucide React and native system fonts.
 
 ## Run locally
 
@@ -36,7 +36,7 @@ Run the build before the standalone type check on a fresh checkout so Next.js ge
 - `components/`: shared navigation, footer, section headings, diagrams, motion reveal and copy-email action.
 - `app/globals.css`: design tokens, Tailwind import, responsive layouts and reduced-motion rules.
 
-Server components handle content and routing. Only navigation, clipboard actions, architecture interaction, the interactive 3D canvas sculpture and subtle reveal effects use client components. Fonts are bundled locally; there are no runtime font requests. No fabricated profile photo, project screenshot or credential imagery is used.
+Server components handle content and routing. Only navigation, clipboard actions, architecture interaction, the interactive 3D canvas sculpture and subtle reveal effects use client components. Typography uses the native Apple system font on Apple devices and Segoe UI / Helvetica / Arial fallbacks elsewhere, with no font downloads. No fabricated profile photo, project screenshot or credential imagery is used.
 
 ## Content and source integrity
 

@@ -1,6 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import "./globals.css";
@@ -40,12 +38,12 @@ export const metadata: Metadata = {
   },
   robots: { index: true, follow: true },
 };
-export const viewport: Viewport = { themeColor: "#080B12" };
+export const viewport: Viewport = { themeColor: "#000000" };
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang="en">
       <body>
         <a className="skip-link" href="#main-content">
           Skip to content

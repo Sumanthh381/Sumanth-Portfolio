@@ -1,19 +1,19 @@
 import { ImageResponse } from "next/og";
 export const alt =
-  "Sumanth N M — Engineering Intelligence. Building What’s Next.";
+  "Sumanth N M — AI Engineer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export default function Image() {
   return new ImageResponse(
     <div
       style={{
-        background: "#080B12",
+        background: "#000000",
         width: "100%",
         height: "100%",
         display: "flex",
         flexDirection: "column",
         padding: "70px",
-        color: "#F5F7FA",
+        color: "#f5f5f7",
         justifyContent: "space-between",
       }}
     >
@@ -25,7 +25,7 @@ export default function Image() {
         }}
       >
         <span>Sumanth N M</span>
-        <span style={{ color: "#65D6E8", fontSize: 18 }}>
+        <span style={{ color: "#a1a1a6", fontSize: 18 }}>
           AI ENGINEER / INDIA
         </span>
       </div>
@@ -38,10 +38,10 @@ export default function Image() {
           lineHeight: 1.05,
         }}
       >
-        <span>Engineering Intelligence.</span>
-        <span style={{ color: "#5B9CFF" }}>Building What’s Next.</span>
+        <span>Sumanth N M.</span>
+        <span style={{ color: "#2997ff" }}>AI Engineer.</span>
       </div>
-      <div style={{ display: "flex", fontSize: 18, color: "#9AA7B8" }}>
+      <div style={{ display: "flex", fontSize: 18, color: "#a1a1a6" }}>
         GENERATIVE AI · RETRIEVAL SYSTEMS · MCP · BACKEND ENGINEERING
       </div>
     </div>,

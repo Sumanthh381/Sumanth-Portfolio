@@ -21,6 +21,9 @@ with sync_playwright() as p:
     assert page.locator('.metrics-wrap').count() == 0
     assert page.locator('.sculpture-controls, .sculpture-coordinates, .orbital-label').count() == 0
     assert page.locator('main').count() == 1
+    assert page.evaluate("getComputedStyle(document.body).backgroundColor") == 'rgb(0, 0, 0)'
+    assert page.locator('.hero-name').evaluate("e=>getComputedStyle(e).fontStyle") == 'normal'
+    assert '-apple-system' in page.evaluate("getComputedStyle(document.body).fontFamily")
     for section in ['about','expertise','experience','projects','certifications','contact']:
         assert page.locator('#'+section).count() == 1
     page.screenshot(path=str(shots/'desktop-home.png'),full_page=True)

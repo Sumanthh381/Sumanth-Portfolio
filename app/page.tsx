@@ -38,9 +38,9 @@ export default function Home() {
             <span className="status-dot" /> MY PERSONAL PORTFOLIO
           </div>
           <h1 id="hero-heading">
-            Hi, I’m<br />
-            <em>Sumanth N M.</em><br />
-            <span>AI Engineer.</span>
+            <span className="hero-greeting">Hi, I’m</span>
+            <span className="hero-name">Sumanth N M.</span>
+            <span className="hero-role">AI Engineer.</span>
           </h1>
           <p className="hero-description">
             I build practical AI applications, retrieval systems and intelligent
